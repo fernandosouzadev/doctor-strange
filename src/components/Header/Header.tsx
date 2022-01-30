@@ -8,7 +8,7 @@ export function Header(){
     return (
         <div className={styles.header}>
             <div className={styles.logo}>
-                <img src="/images/logo.png" alt="Logo Marvel Studios" />
+                <img src="/images/Logo.png" alt="Logo Marvel Studios" />
             </div>
             <div className={styles.menu}>
                 <ul>
