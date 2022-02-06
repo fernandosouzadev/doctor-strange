@@ -3,8 +3,13 @@ import { BsInstagram } from 'react-icons/bs';
 import { FaTwitterSquare } from 'react-icons/fa';
 import styles  from './styles.module.scss'
 
+import { ActiveLink } from './ActiveLink';
+
+
 
 export function Header(){
+
+    
     return (
         <div className={styles.header}>
             <div className={styles.logo}>
@@ -12,10 +17,10 @@ export function Header(){
             </div>
             <div className={styles.menu}>
                 <ul>
-                    <li><a href="#" className={styles.active}>HOME</a></li>
-                    <li><a href="#">SINOPSE</a></li>
-                    <li><a href="#">CHARACTERS</a></li>
-                    <li><a href="#">ABOUT</a></li>
+                    <li><ActiveLink href="/" activeClassName={styles.active}><a>HOME</a></ActiveLink></li>
+                    <li><ActiveLink href="/sinopse" activeClassName={styles.active}><a>SINOPSE</a></ActiveLink></li>
+                    <li><ActiveLink href="/characters" activeClassName={styles.active}><a>CHARACTERS</a></ActiveLink></li>
+                    <li><ActiveLink href="/about" activeClassName={styles.active}><a>ABOUT</a></ActiveLink></li>
                 </ul>
                 <div className={styles.social}>
                     <a href=""><ImFacebook2/></a>
