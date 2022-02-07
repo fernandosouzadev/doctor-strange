@@ -82,7 +82,7 @@ const [modalIsOpen, setIsOpen] = React.useState(false);
             </Modal>
           </motion.main>
           <p>In Multiverse of Madness, the sorcerer supreme of the universe will have the arduous mission of reattaching or multiverse after being deconstructed by the Scarlet Witch in WandaVision. However, a gigantic threat resurfaces to try 
-            to destroy the MCU's parallel universes and face off against Doctor Strange and Wanda Maximoff.</p>
+            to destroy the MCUs parallel universes and face off against Doctor Strange and Wanda Maximoff.</p>
           
         </section>
       </div>
