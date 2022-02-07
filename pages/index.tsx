@@ -81,7 +81,7 @@ export default function Home() {
             }
             >
             <button onClick={handleCloseModal} className={styles.closemodal}>{<MdOutlineClose/>}</button>
-            <iframe width="600" height="400" src="https://www.youtube.com/embed/Rt_UqUm38BI?controls=0" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+            <iframe width="800" height="500" src="https://www.youtube.com/embed/Rt_UqUm38BI?controls=0" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
             </Modal>
           </div>
           </motion.main>

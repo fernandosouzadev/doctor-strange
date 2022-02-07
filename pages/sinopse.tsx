@@ -65,8 +65,8 @@ const [modalIsOpen, setIsOpen] = React.useState(false);
                   backgroundColor: 'rgba(0, 0, 0, 0.75)'
                 },
                 content: {
-                  top: '70%',
-                  left: '70%',
+                  top: '50%',
+                  left: '50%',
                   right: 'auto',
                   bottom: 'auto',
                   transform: 'translate(-50%, -50%)',
@@ -78,7 +78,7 @@ const [modalIsOpen, setIsOpen] = React.useState(false);
             }
             >
             <button onClick={handleCloseModal} className={styles.closemodal}>{<MdOutlineClose/>}</button>
-            <iframe width="600" height="400" src="https://www.youtube.com/embed/Rt_UqUm38BI?controls=0" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+            <iframe width="800" height="500" src="https://www.youtube.com/embed/Rt_UqUm38BI?controls=0" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" ></iframe>
             </Modal>
           </motion.main>
           <p>In Multiverse of Madness, the sorcerer supreme of the universe will have the arduous mission of reattaching or multiverse after being deconstructed by the Scarlet Witch in WandaVision. However, a gigantic threat resurfaces to try 
