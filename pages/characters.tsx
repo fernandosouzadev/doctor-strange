@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Head from 'next/head'
 import { useState } from 'react'
+
 import { Header } from '../src/components/Header/Header'
 import styles from "./styles/Characters.module.scss"
 
@@ -12,7 +13,7 @@ type Character = {
       skills: string;
       cast: string;
       mcu: string;
-  }
+  } | any
 }
 type CharacterState = {
       name: string;
