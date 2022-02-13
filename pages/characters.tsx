@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Header } from '../src/components/Header/Header'
 import styles from "./styles/Characters.module.scss"
 
+
 type Character = {
   [dados:string]:{
       name: string;
@@ -22,6 +23,7 @@ type CharacterState = {
 }
 
 export default function Characters(props:Character) {
+  
   const characters = props.dados
   const [activeCharacter , setActiveCharacter] = useState<CharacterState>(
     {
@@ -88,7 +90,7 @@ export default function Characters(props:Character) {
 
 export async function getServerSideProps() {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/characters`)
+  const res = await fetch(`https://doctor-strange.vercel.app/api/characters`)
   const dados = await res.json()
   // Pass data to the page via props
   return { 
