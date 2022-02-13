@@ -56,7 +56,7 @@ export default function Characters(props:Character) {
               <div className={styles.character}>
                 {
                     charaters && charaters.map((character:CharacterState)=>
-                    <a className={styles.characterSelect}><img onClick={ ()=> setActiveCharacter(character)} src={character.image}></img></a>     
+                    <a  key='character.name' className={styles.characterSelect}><img onClick={ ()=> setActiveCharacter(character)} src={character.image}></img></a>     
                   )         
                 }
 
