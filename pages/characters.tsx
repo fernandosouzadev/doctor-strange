@@ -1,8 +1,15 @@
+import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion'
 import Head from 'next/head'
 import { useState } from 'react'
 import { Header } from '../src/components/Header/Header'
 import styles from "./styles/Characters.module.scss"
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
 
 type Character = {
   [dados:string]:{
@@ -21,7 +28,45 @@ type CharacterState = {
 
 }
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
 export default function Characters(props:Character) {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const characters = props.dados
   const [activeCharacter , setActiveCharacter] = useState<CharacterState>(
     {
@@ -44,13 +89,15 @@ export default function Characters(props:Character) {
           <div className={styles.characters}>
           <div className={styles.card}>
               <div className={styles.menu}>
-                  <ul>
-                          <li><a>STORY</a></li>
-                          <li><a>SKILLS</a></li>
-                          <li><a>CAST</a></li>
-                          <li><a>COMICS</a></li>
-                          <li><a>MCU</a></li>
-                  </ul>
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={value} onChange={handleChange} textColor="inherit" aria-label="basic tabs example">
+                          <Tab label="STORY" {...a11yProps(0)} />
+                          <Tab label="SKILLS" {...a11yProps(1)} />
+                          <Tab label="CAST" {...a11yProps(2)} />
+                          <Tab label="COMICS" {...a11yProps(3)} />
+                          <Tab label="MCU" {...a11yProps(4)} />
+                        </Tabs>
+                      </Box>
               </div>
               <div className={styles.character}>
                 {
@@ -60,15 +107,18 @@ export default function Characters(props:Character) {
                 }
 
                   <div>
-                      <textarea defaultValue='Wanda Maximoff, also known as the Scarlet Witch, is a native of Sokovia who grew up with her fraternal 
-                      twin brother, Pietro. Born with the latent mythical ability to harness Chaos Magic, she developed a hatred against Tony Stark and rallied 
-                      anti-American protests after the Novi Grad Bombings killed her parents. Years later, in an effort to help purge their country of strife, the 
-                      twins joined HYDRA and agreed to undergo experiments with the Scepter under the supervision of Wolfgang von Strucker, with the Mind Stone awakening
-                      and amplifying Wandas powers. While her brother developed super-speed, she attained various psionic abilities. When HYDRA fell, the twins joined
-                      Ultron to get their revenge on Stark, but abandoned him when they discovered his true intentions to eradicate humanity. Wanda and Pietro joined
-                      the Avengers during the Battle of Sokovia to stop Ultron; Pietro was killed during the battle but Wanda survived, and shortly after relocated 
-                      to the Avengers Compound in the United States of America.
-                      During the Avengers Civil War, she sided with Captain America and was briefly  imprisoned on the Raft before Rogers freed her alongside'></textarea></div>
+                  <Box sx={{ width: '100%' }}>
+                      <TabPanel value={value} index={0}>
+                        <textarea>Wanda Maximoff, also known as the Scarlet Witch, is a native of Sokovia who grew up with her fraternal twin brother, Pietro. Born with the latent mythical ability to harness Chaos Magic, she developed a hatred against Tony Stark and rallied anti-American protests after the Novi Grad Bombings killed her parents. Years later, in an effort to help purge their country of strife, the twins joined HYDRA and agreed to undergo experiments with the Scepter under the supervision of Wolfgang von Strucker, with the Mind Stone awakening and amplifying Wandas powers. While her brother developed super-speed, she attained various psionic abilities. When HYDRA fell, the twins joined Ultron to get their revenge on Stark, but abandoned him when they discovered his true intentions to eradicate humanity. Wanda and Pietro joined the Avengers during the Battle of Sokovia to stop Ultron; Pietro was killed during the battle but Wanda survived, and shortly after relocated to the Avengers Compound in the United States of America. During the Avengers Civil War, she sided with Captain America and was briefly imprisoned on the Raft before Rogers freed her alongside</textarea>
+                      </TabPanel>
+                      <TabPanel value={value} index={1}>
+                        Item Two
+                      </TabPanel>
+                      <TabPanel value={value} index={2}>
+                        Item Three
+                      </TabPanel>
+                    </Box>
+                    </div>
                   </div>
               </div>
               <AnimatePresence>
