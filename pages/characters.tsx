@@ -149,6 +149,7 @@ export async function getStaticProps() {
   const dados = await res.json()
   // Pass data to the page via props
   return { 
-    props: { dados}
+    props: { dados},
+    revalidate :60
   }
 }
