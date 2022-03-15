@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AnimatePresence, motion } from 'framer-motion'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Header } from '../src/components/Header/Header'
 import styles from "./styles/Characters.module.scss"
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Image from 'next/image'
 
 
 type Character = {
@@ -25,6 +26,7 @@ type CharacterState = {
       name: string;
       imageCharacter: string;
       image: string;
+      description:string;
 
 }
 
@@ -66,16 +68,19 @@ export default function Characters(props:Character) {
 
   const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
     setValue(newValue);
-  };
+  }
+
   const characters = props.dados
+
   const [activeCharacter , setActiveCharacter] = useState<CharacterState>(
     {
       name: 'Doctor Strange',
       imageCharacter:'/images/doctor-home.png',
-      image:''
+      image:'',
+      description:characters[0].description
     }
-    );
-
+  );
+  
   return (
       <div className={styles.Characters}>
         <Head>
@@ -90,32 +95,34 @@ export default function Characters(props:Character) {
           <div className={styles.card}>
               <div className={styles.menu}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange} textColor="inherit" aria-label="basic tabs example">
+                        <Tabs value={value} onChange={handleChange} textColor="inherit">
                           <Tab label="STORY" {...a11yProps(0)} />
                           <Tab label="SKILLS" {...a11yProps(1)} />
                           <Tab label="CAST" {...a11yProps(2)} />
                           <Tab label="COMICS" {...a11yProps(3)} />
-                          <Tab label="MCU" {...a11yProps(4)} />
                         </Tabs>
                       </Box>
               </div>
               <div className={styles.character}>
                 {
                     characters && characters.map((character:CharacterState)=>
-                    <a  key={character.name} className={styles.characterSelect}><img onClick={ ()=> setActiveCharacter(character)} src={character.image}></img></a>     
+                    <a  key={character.name} className={styles.characterSelect}><Image onClick={ ()=> setActiveCharacter(character)} src={character.image} width={100} height={100}/></a>     
                   )         
                 }
 
                   <div>
                   <Box sx={{ width: '100%' }}>
                       <TabPanel value={value} index={0}>
-                        <textarea>Wanda Maximoff, also known as the Scarlet Witch, is a native of Sokovia who grew up with her fraternal twin brother, Pietro. Born with the latent mythical ability to harness Chaos Magic, she developed a hatred against Tony Stark and rallied anti-American protests after the Novi Grad Bombings killed her parents. Years later, in an effort to help purge their country of strife, the twins joined HYDRA and agreed to undergo experiments with the Scepter under the supervision of Wolfgang von Strucker, with the Mind Stone awakening and amplifying Wandas powers. While her brother developed super-speed, she attained various psionic abilities. When HYDRA fell, the twins joined Ultron to get their revenge on Stark, but abandoned him when they discovered his true intentions to eradicate humanity. Wanda and Pietro joined the Avengers during the Battle of Sokovia to stop Ultron; Pietro was killed during the battle but Wanda survived, and shortly after relocated to the Avengers Compound in the United States of America. During the Avengers Civil War, she sided with Captain America and was briefly imprisoned on the Raft before Rogers freed her alongside</textarea>
+                        <textarea value={activeCharacter.description}></textarea>
                       </TabPanel>
                       <TabPanel value={value} index={1}>
-                        Item Two
+                        <textarea>SKILLS</textarea>
                       </TabPanel>
                       <TabPanel value={value} index={2}>
-                        Item Three
+                        <textarea>CAST</textarea>
+                      </TabPanel>
+                      <TabPanel value={value} index={3}>
+                        <textarea>COMICS</textarea>
                       </TabPanel>
                     </Box>
                     </div>
@@ -136,12 +143,12 @@ export default function Characters(props:Character) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   // Fetch data from external API
-  const res = await fetch(`https://doctor-strange.vercel.app/api/characters`)
+  const res = await fetch(`http://localhost:3000/api/characters`)
   const dados = await res.json()
   // Pass data to the page via props
   return { 
-    props: { dados} 
+    props: { dados}
   }
 }
