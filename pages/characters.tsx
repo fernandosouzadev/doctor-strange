@@ -145,7 +145,7 @@ export default function Characters(props:Character) {
 
 export async function getStaticProps() {
   // Fetch data from external API
-  const res = await fetch(`https://doctor-strange.vercel.app/:3000/api/characters`)
+  const res = await fetch(`https://doctor-strange.vercel.app/api/characters`)
   const dados = await res.json()
   // Pass data to the page via props
   return { 
