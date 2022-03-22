@@ -29,8 +29,8 @@ type CharacterState = {
       image: string;
       description:string;
       skills:{
-        Destruction:string;
-        Power:string;
+        Powers:string;
+        Grid:[];
       }
 
 }
@@ -130,7 +130,7 @@ export default function Characters(props:Character) {
                           <div className={styles.skillGrid}>
                             <h1>POWER GRID</h1>
                           {
-                            activeCharacter.skills.Grid?.map((skillGrid)=>
+                            activeCharacter.skills.Grid?.map((skillGrid:CharacterState)=>
                             <>
                             <h2>{skillGrid.name}</h2>
                               <LinearProgress className={styles.SkillBar} sx={{width: 400,height:25}} variant="determinate" value={parseInt(skillGrid.value)}/>
