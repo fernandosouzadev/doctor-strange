@@ -30,9 +30,14 @@ type CharacterState = {
       description:string;
       skills:{
         Powers:string;
-        Grid:[];
+        Grid:[]
       }
 
+}
+
+type SkillGridCharacter = {
+      name:string;
+      value:number;
 }
 
 function TabPanel(props: { [x: string]: any; children: any; value: any; index: any; }) {
@@ -130,10 +135,10 @@ export default function Characters(props:Character) {
                           <div className={styles.skillGrid}>
                             <h1>POWER GRID</h1>
                           {
-                            activeCharacter.skills.Grid?.map((skillGrid:CharacterState)=>
+                            activeCharacter.skills.Grid?.map((skillGrid:SkillGridCharacter)=>
                             <>
                             <h2>{skillGrid.name}</h2>
-                              <LinearProgress className={styles.SkillBar} sx={{width: 400,height:25}} variant="determinate" value={parseInt(skillGrid.value)}/>
+                              <LinearProgress className={styles.SkillBar} sx={{width: 400,height:25}} variant="determinate" value={skillGrid.value}/>
                             </>
                             )   
                           } 
