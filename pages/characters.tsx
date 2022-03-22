@@ -10,6 +10,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Image from 'next/image'
+import { LinearProgress } from '@mui/material';
 
 
 type Character = {
@@ -27,6 +28,10 @@ type CharacterState = {
       imageCharacter: string;
       image: string;
       description:string;
+      skills:{
+        Destruction:string;
+        Power:string;
+      }
 
 }
 
@@ -77,10 +82,11 @@ export default function Characters(props:Character) {
       name: 'Doctor Strange',
       imageCharacter:'/images/doctor-home.png',
       image:'',
-      description:characters[0].description
+      description:characters[0].description,
+      skills:characters[0].skills      
     }
   );
-  
+
   return (
       <div className={styles.Characters}>
         <Head>
@@ -116,7 +122,23 @@ export default function Characters(props:Character) {
                         <textarea value={activeCharacter.description}></textarea>
                       </TabPanel>
                       <TabPanel value={value} index={1}>
-                        <textarea>SKILLS</textarea>
+                        <div className={styles.skillsDiv}>
+                          <div className={styles.skillPower}>
+                            <h1>POWERS</h1>
+                            <h2>{activeCharacter.skills.Powers}</h2>
+                          </div>
+                          <div className={styles.skillGrid}>
+                            <h1>POWER GRID</h1>
+                          {
+                            activeCharacter.skills.Grid?.map((skillGrid)=>
+                            <>
+                            <h2>{skillGrid.name}</h2>
+                              <LinearProgress className={styles.SkillBar} sx={{width: 400,height:25}} variant="determinate" value={parseInt(skillGrid.value)}/>
+                            </>
+                            )   
+                          } 
+                        </div>
+                      </div>
                       </TabPanel>
                       <TabPanel value={value} index={2}>
                         <textarea>CAST</textarea>
@@ -150,6 +172,6 @@ export async function getStaticProps() {
   // Pass data to the page via props
   return { 
     props: { dados},
-    revalidate :60
+    revalidate: 60,
   }
 }

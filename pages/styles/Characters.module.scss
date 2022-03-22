@@ -103,7 +103,6 @@
       align-items:center;
       grid-template-columns: 1fr;
       position: relative;
-
       textarea{
           width: 50rem;
           height:20rem;
@@ -151,10 +150,46 @@
           border-radius:1rem;
         }
       }
+      .skillsDiv{
+        width: 50rem;
+        height:20rem;
+        margin-right:5rem;
+        margin-top: 5rem;
+        position: absolute;
+        top: 0;
+        right:5rem;  
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        h1{
+          font-weight: 600;
+          font-family: 'Poppins',sans-serif;
+          font-size: 1.3rem;
+        }
+        h2{
+          font-weight: 200;
+          font-family: 'Poppins',sans-serif;
+          font-size: 1rem;
+        }
+      
+      }
+      .skillGrid{
+          .SkillBar > * {
+            background:url(/images/background-name.jpg); 
+            margin: 3px;
+            margin-left: 5px;
+      
+            
+           }
+         .SkillBar{
+           background-color:#C4C4C4 ;
+           margin-bottom: 1rem;
+           
+         }
+      }
 
 
   }
 
 }
-
-
