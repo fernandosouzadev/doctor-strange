@@ -192,7 +192,7 @@ export default function Characters(props:Character) {
                       <div className={styles.ComicsDiv}>
                           {(ComicsValue?.length > 0) ? 
                             ComicsValue?.map((comic)=>
-                              <div>
+                              <div key={comic?.title}>
                                 <a href={comic?.urls.url} target="_blank">
                                 <Image src={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}alt="" width={150} height={150}/>
                                 <h2>{comic?.title}</h2>
