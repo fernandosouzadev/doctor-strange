@@ -43,9 +43,9 @@ type SkillGridCharacter = {
 
 type Comics = 
   {
-    urls:{
+    urls:[{
     url:string;
-  },
+  }],
   thumbnail: {
     extension:string;
     path:string;
