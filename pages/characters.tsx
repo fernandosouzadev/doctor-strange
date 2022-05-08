@@ -51,6 +51,7 @@ type Comics =
     path:string;
   },
   title: string,
+  id:number;
 }
 interface ComicsArray extends Array<Comics>{}
 
@@ -192,8 +193,8 @@ export default function Characters(props:Character) {
                       <div className={styles.ComicsDiv}>
                           {(ComicsValue?.length > 0) ? 
                             ComicsValue?.map((comic)=>
-                              <div key={comic?.title}>
-                                <a href={comic?.urls.url} target="_blank" rel="noreferrer">
+                              <div key={comic?.id}>
+                                <a href={comic?.urls[0].url} target="_blank" rel="noreferrer">
                                 <Image src={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}alt="" width={150} height={150}/>
                                 <h2>{comic?.title}</h2>
                                 </a>
