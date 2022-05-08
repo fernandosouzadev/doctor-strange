@@ -178,7 +178,7 @@ export default function Characters(props:Character) {
                             <h1>POWER GRID</h1>
                           {
                             activeCharacter.skills.Grid?.map((skillGrid:SkillGridCharacter)=>
-                            <div>
+                            <div key={skillGrid.name}>
                             <h2>{skillGrid.name}</h2>
                               <LinearProgress className={styles.SkillBar} sx={{width: 400,height:25}} variant="determinate" value={skillGrid.value}/>
                             </div>
@@ -193,7 +193,7 @@ export default function Characters(props:Character) {
                           {(ComicsValue?.length > 0) ? 
                             ComicsValue?.map((comic)=>
                               <div key={comic?.title}>
-                                <a href={comic?.urls.url} target="_blank">
+                                <a href={comic?.urls.url} target="_blank" rel="noreferrer">
                                 <Image src={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}alt="" width={150} height={150}/>
                                 <h2>{comic?.title}</h2>
                                 </a>
