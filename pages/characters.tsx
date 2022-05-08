@@ -13,8 +13,6 @@ import Image from 'next/image'
 import { LinearProgress } from '@mui/material';
 import md5 from 'md5'
 import axios from 'axios';
-import { useQuery } from 'react-query';
-
 
 type Character = {
   [dados:string]:{
@@ -42,6 +40,21 @@ type SkillGridCharacter = {
       name:string;
       value:number;
 }
+
+type Comics = 
+  {
+    urls:{
+    url:string;
+  },
+  thumbnail: {
+    extension:string;
+    path:string;
+  },
+  title: string,
+}
+interface ComicsArray extends Array<Comics>{}
+
+
 
 function TabPanel(props: { [x: string]: any; children: any; value: any; index: any; }) {
   const { children, value, index, ...other } = props;
@@ -78,8 +91,12 @@ function a11yProps(index: number) {
 
 
 export default function Characters(props:Character) {
+   
   const [value, setValue] = useState(0);
-  const [ComicsValue, setComicsValue] = useState([]);
+
+  const [ComicsValue, setComicsValue] = useState<ComicsArray>([]);
+
+  console.log(ComicsValue)
 
   const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
     setValue(newValue);
@@ -108,7 +125,7 @@ export default function Characters(props:Character) {
       );
       
 
-      setComicsValue(result.data.data);
+      setComicsValue(result.data.data.results);
     };
 
     fetchData();
@@ -127,10 +144,15 @@ export default function Characters(props:Character) {
           <div className={styles.card}>
               <div className={styles.menu}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange} textColor="inherit">
-                          <Tab label="STORY" {...a11yProps(0)} />
-                          <Tab label="SKILLS" {...a11yProps(1)} />
-                          <Tab label="COMICS" {...a11yProps(2)} />
+                        <Tabs value={value} onChange={handleChange} textColor="inherit" sx={{
+                        '& .MuiTabs-indicator': {
+                        backgroundColor: 'red',
+                        height:'5px',
+                        },
+                      }}>
+                          <Tab sx={{ fontFamily:'Poppins',fontWeight:'bold'}} label="STORY" {...a11yProps(0)} />
+                          <Tab sx={{ fontFamily:'Poppins',fontWeight:'bold'}} label="SKILLS" {...a11yProps(1)} />
+                          <Tab sx={{ fontFamily:'Poppins',fontWeight:'bold'}} label="COMICS" {...a11yProps(2)} />
                         </Tabs>
                       </Box>
               </div>
@@ -168,11 +190,11 @@ export default function Characters(props:Character) {
                       <TabPanel value={value} index={2}>
                         
                       <div className={styles.ComicsDiv}>
-                          {(ComicsValue.results?.length > 0) ? 
-                            ComicsValue.results?.map((comic:SkillGridCharacter)=>
+                          {(ComicsValue?.length > 0) ? 
+                            ComicsValue?.map((comic)=>
                               <div>
-                                <a href={comic?.urls[0].url} target="_blank">
-                                <Image src={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}alt="" width={150} height={150} blur/>
+                                <a href={comic?.urls.url} target="_blank">
+                                <Image src={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}alt="" width={150} height={150}/>
                                 <h2>{comic?.title}</h2>
                                 </a>
                               </div>
@@ -201,7 +223,7 @@ export default function Characters(props:Character) {
 
 export async function getStaticProps() {
   // Fetch data from external API
-  const res = await fetch(`http://localhost:3000/api/characters`)
+  const res = await fetch(`https://doctor-strange.vercel.app//api/characters`)
   const dados = await res.json()
   // Pass data to the page via props
   return { 
