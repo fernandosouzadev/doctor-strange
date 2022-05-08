@@ -121,7 +121,7 @@ export default function Characters(props:Character) {
       const time = Number(new Date());
       const hash = md5(time + privateKey + publicKey)
       const result = await axios(
-        `http://gateway.marvel.com/v1/public/comics?title=${activeCharacter.name}&limit=20&ts=${time}&apikey=${publicKey}&hash=${hash}`,
+        `https://gateway.marvel.com/v1/public/comics?title=${activeCharacter.name}&limit=20&ts=${time}&apikey=${publicKey}&hash=${hash}`,
       );
       
 
