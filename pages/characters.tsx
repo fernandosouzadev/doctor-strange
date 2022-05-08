@@ -198,7 +198,7 @@ export default function Characters(props:Character) {
                                 <h2>{comic?.title}</h2>
                                 </a>
                               </div>
-                            ) : <h1>We couldn't find any comics for this character!</h1>  
+                            ) : <h1>We couldn&apos;t find any comics for this character!</h1>  
                           } 
                         </div>
                       </TabPanel>
