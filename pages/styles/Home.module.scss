@@ -18,7 +18,7 @@
   align-items:center;
 
   .doctor{
-    position: relative;
+    position: absolute;
     bottom: -4rem;
     z-index: 9999;
 
@@ -42,7 +42,9 @@
 
   }
   .intro{
-    
+    position: absolute;
+    right: 20vw;
+    top: 13vw;
     div{
       font-weight: 600;
       font-size: 0.9rem;

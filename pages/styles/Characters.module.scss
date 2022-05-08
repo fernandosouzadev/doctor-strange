@@ -44,6 +44,7 @@
         position: absolute;
         right:0;
         bottom:0;
+        max-width: 40%;
       }
   
     }
@@ -54,8 +55,8 @@
   border-radius:1rem;
   padding:0 3rem;
   max-width:1200px;
-  width:1200px;
-  height:100rem;
+  width:100%;
+  height:100vh;
 
   .menu{
       
@@ -86,7 +87,7 @@
                       content: "";
                       background-color:var(--primary);
                       height: 4px;
-                      width: 110%;
+                      width: 100%;
                       position: absolute;
                       border-radius: 10px;
                       top: 20px;
@@ -104,8 +105,8 @@
       grid-template-columns: 1fr;
       position: relative;
       textarea{
-          width: 50rem;
-          height:20rem;
+          width: 40vw;
+          height: 40vh;
           margin-right:5rem;
           margin-top: 5rem;
           border: 0;
@@ -138,11 +139,14 @@
       }
       .characterSelect{
         position: relative;
-        width:5rem;
-        height:5rem;
+        width:4vw;
         top: 5rem;
         left: 1rem;
         margin-bottom: 1rem;
+        transition:transform 0.3s;
+        &:hover {
+            transform:scale(1.05);
+        }
         img{
           object-fit: cover;
           width: 5rem;
@@ -187,6 +191,66 @@
            margin-bottom: 1rem;
            
          }
+      }
+      .ComicsDiv{
+        width: 50rem;
+        height:35rem;
+        margin-right:5rem;
+        margin-top: 5rem;
+        position: absolute;
+        top: 0;
+        right:5rem; 
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-content: space-between;
+        gap: 2;
+        scrollbar-color: #d4aa70 #e4e4e4;
+        scrollbar-width: thin;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        h1{
+          width: 100%;
+          position: absolute;
+          font-weight: 400;
+          display: flex;
+          justify-content: center;
+          align-self: center;
+        }
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #e4e4e4;
+            border-radius: 100px;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 100px;
+            border: 1px solid transparent;
+            background-clip: content-box;
+            background-color: #ff0000;
+        }
+        padding: 1rem;
+        div{
+          margin-bottom: 2rem;
+          transition:transform 0.3s;
+          h2{
+            font-size: 0.8rem;
+          }
+          &:hover{
+            transform:scale(1.05);
+
+          }
+          img{
+            width: 8vw;
+            height: 15vh;
+            border: 3px solid white;
+          }
+        }
       }
 
 

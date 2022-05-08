@@ -11,6 +11,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Image from 'next/image'
 import { LinearProgress } from '@mui/material';
+import md5 from 'md5'
+import axios from 'axios';
+import { useQuery } from 'react-query';
 
 
 type Character = {
@@ -73,8 +76,10 @@ function a11yProps(index: number) {
   };
 }
 
+
 export default function Characters(props:Character) {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [ComicsValue, setComicsValue] = useState([]);
 
   const handleChange = (event: any, newValue: React.SetStateAction<number>) => {
     setValue(newValue);
@@ -92,6 +97,22 @@ export default function Characters(props:Character) {
     }
   );
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const publicKey = '43e48dfca53a5fc3a7d0c95b6f43bbe3'
+      const privateKey = 'e777fe1cb241aef13cffde043c5d9cfaf4ffda28'
+      const time = Number(new Date());
+      const hash = md5(time + privateKey + publicKey)
+      const result = await axios(
+        `http://gateway.marvel.com/v1/public/comics?title=${activeCharacter.name}&limit=20&ts=${time}&apikey=${publicKey}&hash=${hash}`,
+      );
+      
+
+      setComicsValue(result.data.data);
+    };
+
+    fetchData();
+  }, [activeCharacter]);
   return (
       <div className={styles.Characters}>
         <Head>
@@ -109,8 +130,7 @@ export default function Characters(props:Character) {
                         <Tabs value={value} onChange={handleChange} textColor="inherit">
                           <Tab label="STORY" {...a11yProps(0)} />
                           <Tab label="SKILLS" {...a11yProps(1)} />
-                          <Tab label="CAST" {...a11yProps(2)} />
-                          <Tab label="COMICS" {...a11yProps(3)} />
+                          <Tab label="COMICS" {...a11yProps(2)} />
                         </Tabs>
                       </Box>
               </div>
@@ -136,20 +156,29 @@ export default function Characters(props:Character) {
                             <h1>POWER GRID</h1>
                           {
                             activeCharacter.skills.Grid?.map((skillGrid:SkillGridCharacter)=>
-                            <>
+                            <div>
                             <h2>{skillGrid.name}</h2>
                               <LinearProgress className={styles.SkillBar} sx={{width: 400,height:25}} variant="determinate" value={skillGrid.value}/>
-                            </>
+                            </div>
                             )   
                           } 
                         </div>
                       </div>
                       </TabPanel>
                       <TabPanel value={value} index={2}>
-                        <textarea>CAST</textarea>
-                      </TabPanel>
-                      <TabPanel value={value} index={3}>
-                        <textarea>COMICS</textarea>
+                        
+                      <div className={styles.ComicsDiv}>
+                          {(ComicsValue.results?.length > 0) ? 
+                            ComicsValue.results?.map((comic:SkillGridCharacter)=>
+                              <div>
+                                <a href={comic?.urls[0].url} target="_blank">
+                                <Image src={`${comic?.thumbnail.path}.${comic?.thumbnail.extension}`}alt="" width={150} height={150} blur/>
+                                <h2>{comic?.title}</h2>
+                                </a>
+                              </div>
+                            ) : <h1>We couldn't find any comics for this character!</h1>  
+                          } 
+                        </div>
                       </TabPanel>
                     </Box>
                     </div>
@@ -172,7 +201,7 @@ export default function Characters(props:Character) {
 
 export async function getStaticProps() {
   // Fetch data from external API
-  const res = await fetch(`https://doctor-strange.vercel.app/api/characters`)
+  const res = await fetch(`http://localhost:3000/api/characters`)
   const dados = await res.json()
   // Pass data to the page via props
   return { 
