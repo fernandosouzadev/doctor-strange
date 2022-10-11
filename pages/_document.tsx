@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import Script from 'next/script'
+
 
 class MyDocument extends Document {
 
@@ -7,7 +7,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-        <Script type="text/javascript" src="/static/script.js"></Script>
             <link rel="preconnect" href="https://fonts.googleapis.com"/>
             <link rel="preconnect" href="https://fonts.gstatic.com"/>
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap" rel="stylesheet" />
